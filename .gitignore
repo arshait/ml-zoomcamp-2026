@@ -35,3 +35,17 @@ credentials.json
 # Temporary
 *.tmp
 *.log
+
+# Homework 8 image archive (checksum in hw8/dataset_manifest.json)
+hw8/data/
+hw8/data.zip
+hw8/.venv/
+hw8/train_run.txt
+
+# Homework 9 large ONNX weights (checksums in hw9/asset_manifest.json)
+hw9/.venv/
+hw9/hair_classifier_v1.onnx
+hw9/hair_classifier_v1.onnx.data
+
+# Homework environments
+hw10/.venv/

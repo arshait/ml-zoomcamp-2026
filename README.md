@@ -12,12 +12,18 @@ Personal homework repository for [DataTalksClub ML Zoomcamp 2026](https://github
 | 4 | [hw4](hw4/) | Evaluation metrics (ROC AUC, PR curves, CV) |
 | 5 | [hw5](hw5/) | Model deployment (FastAPI, uv, Docker) |
 | 6 | [hw6](hw6/) | Tree ensembles (RF, XGBoost) |
+| 8 | [hw8](hw8/) | Neural networks (curly vs straight hair) |
+| 9 | [hw9](hw9/) | Serverless deep learning (ONNX, Lambda) |
+| 10 | [hw10](hw10/) | Kubernetes and model serving |
 
 ## Modules 4–6 (summary)
 
 - **Module 4** — Lead conversion classification: single-feature AUC, logistic regression, precision/recall/F1 thresholds, and k-fold regularization tuning.
 - **Module 5** — Deploy a frozen scikit-learn pipeline with FastAPI, reproducible `uv` environments, and a containerized service with health checks.
 - **Module 6** — Regression with decision trees, random forests, and XGBoost on the 2026 car fuel efficiency dataset.
+- **Module 8** — A fixed CPU PyTorch hair classifier, then the same model trained for 10 more epochs with the official augmentation.
+- **Module 9** — A checksummed ONNX hair classifier behind the official Lambda handler, including a local container invocation.
+- **Module 10** — The Homework 5 lead-scoring image on a named kind cluster, with a ClusterIP service and an HPA.
 
 ## Reproduce results
 
@@ -56,6 +62,41 @@ jupyter nbconvert --to notebook --execute homework6.ipynb --inplace
 ```
 
 Dataset: [car_fuel_efficiency_2026.csv](https://raw.githubusercontent.com/DataTalksClub/machine-learning-zoomcamp/main/cohorts/2026/data/car_fuel_efficiency_2026.csv)
+
+### Homework 8
+
+```powershell
+cd hw8
+# see README.md for the CPU wheel install
+.\.venv\Scripts\python.exe reference_train.py --data-dir data --output-dir .
+```
+
+Reference: [08-deep-learning](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/main/cohorts/2026/homework/08-deep-learning)
+
+### Homework 9
+
+```powershell
+cd hw9
+.\.venv\Scripts\python.exe smoke_test.py
+docker build -t mlzoomcamp-2026-serverless .
+docker run --rm -p 9000:8080 mlzoomcamp-2026-serverless
+```
+
+Reference: [09-serverless](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/main/cohorts/2026/homework/09-serverless)
+
+### Homework 10
+
+```powershell
+cd hw5
+docker build -t zoomcamp-model:2026-hw10 .
+kind create cluster --name mlzoomcamp-2026
+kind load docker-image zoomcamp-model:2026-hw10 --name mlzoomcamp-2026
+kubectl apply -f ..\hw10\deployment.yaml --context kind-mlzoomcamp-2026
+kubectl apply -f ..\hw10\service.yaml --context kind-mlzoomcamp-2026
+kubectl apply -f ..\hw10\hpa.yaml --context kind-mlzoomcamp-2026
+```
+
+Reference: [10-kubernetes](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/main/cohorts/2026/homework/10-kubernetes)
 
 ## Notes
 
